@@ -33,6 +33,32 @@ public class Conway {
     }
 
     /**
+     * Runs one iteration of the conway game of life
+     */
+    public void run() {
+        int alive_neighbours_num;
+
+        // iterate through each cell
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < column; j++) {
+                // count num neighbours alive
+                alive_neighbours_num = countCellNeighbours(i, j);
+
+                // if the cell is alive
+                if (grid[i][j] != DEAD) {
+                    // check underpopulation or overpopulation
+                    if (alive_neighbours_num < 2 || alive_neighbours_num > 3) {
+                        grid[i][j] = DEAD;
+                    }
+                } else if (alive_neighbours_num == 3) {
+                    // if the cell is dead and has 3 neighbours, then it lives
+                    grid[i][j] = ALIVE;
+                }
+            }
+        }
+    }
+
+    /**
      * Counts the alive neighbours of a given cell
      * @param cell_row row of the given cell
      * @param cell_col column of the given cell
